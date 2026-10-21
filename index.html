@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kripa Web Design</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Simple, mobile-friendly websites for local shops, cafés, takeaways and barbers in Wembley and North West London.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow reading column; a shop-window "storefront" hero; price cards as the one boxed element */
+:root{
+  --bg:#F5F6FA; --surface:#FFFFFF; --ink:#18213A; --muted:#55607A; --line:#DCE0EA;
+  --accent:#E09A12; --accent-ink:#1A1405; --deep:#22305A;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1424; --surface:#171E33; --ink:#E9ECF5; --muted:#A3ABC2; --line:#2A3350;
+  --accent:#F2B13A; --accent-ink:#1A1405; --deep:#C9D3F2; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F1424; --surface:#171E33; --ink:#E9ECF5; --muted:#A3ABC2; --line:#2A3350;
+  --accent:#F2B13A; --accent-ink:#1A1405; --deep:#C9D3F2; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:880px;margin:0 auto}
+a{color:var(--deep);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.1;margin:0}
+h2{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+.label{font:500 .75rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+section{padding-block:56px;border-top:1px solid var(--line);display:grid;gap:24px}
+p{margin:0;max-width:62ch}
+
+/* header */
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:20px;flex-wrap:wrap}
+.brand{font:800 1.25rem/1 var(--display);letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+.navlink{font-weight:600;text-decoration:none;color:var(--ink);border-bottom:2px solid var(--accent)}
+
+/* hero */
+.hero{padding-block:32px 56px;display:grid;gap:28px}
+.hero h1{font-size:clamp(2.3rem,7vw,4rem);font-weight:800;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%, var(--accent) 62%)}
+.hero p{font-size:1.15rem;color:var(--muted)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 20px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;font-size:1rem;cursor:pointer;font-family:var(--body)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+/* storefront: what a shop's page shows, drawn as a phone-sized listing */
+.store{border:2px solid var(--ink);border-radius:18px;background:var(--surface);overflow:hidden;max-width:420px}
+.awning{height:22px;background:repeating-linear-gradient(90deg,var(--accent) 0 28px,var(--surface) 28px 56px);border-bottom:2px solid var(--ink)}
+.store-body{padding:18px;display:grid;gap:10px}
+.store-row{display:flex;justify-content:space-between;gap:12px;font-size:.95rem;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.store-row:last-child{border-bottom:0;padding-bottom:0}
+.store-row b{font-weight:600}
+.store-row span{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+
+/* includes list */
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 28px;padding:0;margin:0;list-style:none}
+.checks li{display:flex;gap:10px;align-items:baseline}
+.checks li::before{content:"";flex:0 0 10px;height:10px;border-radius:2px;background:var(--accent);transform:translateY(-1px)}
+
+/* prices */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.price{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:10px;align-content:start}
+.price.feature{border:2px solid var(--accent)}
+.amount{font:800 2.4rem/1 var(--display);font-variant-numeric:tabular-nums}
+.amount small{font:500 .95rem var(--body);color:var(--muted)}
+.price p{color:var(--muted);font-size:.95rem}
+.note{font-size:.92rem;color:var(--muted)}
+
+/* work */
+.work{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:680px){.work{grid-template-columns:1fr}}
+.browser{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0E1220}
+.bar{display:flex;gap:6px;align-items:center;padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.url{margin-left:8px;font:500 .72rem var(--mono);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.shot{padding:30px 22px;display:grid;gap:10px;background:radial-gradient(circle at 80% 20%,#2B3A6B 0,#0E1220 65%);color:#EEF1FA}
+.shot .label{color:#B9C3E3}
+.shot strong{font:700 1.35rem/1.15 var(--display)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:.75rem;border:1px solid #47558A;border-radius:999px;padding:3px 9px;color:#D8DEF2}
+.work ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
+
+/* steps */
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:18px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;counter-increment:s}
+.steps li::before{content:counter(s);font:700 1.1rem/40px var(--display);text-align:center;width:40px;height:40px;border-radius:50%;border:2px solid var(--ink)}
+.steps p{color:var(--muted)}
+
+/* contact */
+.contact{display:grid;gap:12px}
+.line{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.line div{min-width:0}
+.val{font:600 1.05rem var(--body);word-break:break-all;user-select:all}
+.copy{font:600 .85rem var(--body);padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">Kripa<span>.</span> Web Design</div>
+    <a class="navlink" href="#contact">Get a free quote</a>
+  </header>
+
+  <div class="hero">
+    <span class="label">Wembley · North West London</span>
+    <h1>Websites for <em>local shops</em> that customers can actually find.</h1>
+    <p>I build simple, mobile-friendly websites for cafés, takeaways, sweet shops, barbers and small businesses. Your menu, your opening hours and your phone number, all in one place and easy to find on Google.</p>
+    <div class="cta">
+      <a class="btn primary" href="#contact">Get a free quote</a>
+      <a class="btn" href="#prices">See prices</a>
+    </div>
+    <div class="store" aria-label="Example of what your customers see">
+      <div class="awning"></div>
+      <div class="store-body">
+        <span class="label">What your customers see</span>
+        <div class="store-row"><b>Today</b><span>Open · 10:00 – 21:30</span></div>
+        <div class="store-row"><b>Menu</b><span>Up to date, with prices</span></div>
+        <div class="store-row"><b>Call or WhatsApp</b><span>One tap on mobile</span></div>
+        <div class="store-row"><b>Find us</b><span>Map and directions</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="includes">
+    <span class="label">Included in every site</span>
+    <h2>Everything a customer looks for before they visit</h2>
+    <ul class="checks">
+      <li>Works well on phones</li>
+      <li>Menu, services or price list</li>
+      <li>Correct opening hours</li>
+      <li>Phone, WhatsApp and email</li>
+      <li>Google map and directions</li>
+      <li>Your photos</li>
+      <li>A check of your Google Business Profile</li>
+      <li>Links to your Instagram, Facebook or booking app</li>
+    </ul>
+  </section>
+
+  <section id="prices">
+    <span class="label">Starter prices</span>
+    <h2>Clear prices, no surprises</h2>
+    <div class="prices">
+      <div class="price feature">
+        <h3>One-page site</h3>
+        <div class="amount">£150</div>
+        <p>Menu or services, opening hours, map, contact details and photos on one page. Ideal for a café, takeaway or barber.</p>
+      </div>
+      <div class="price">
+        <h3>Small site, 3–5 pages</h3>
+        <div class="amount">£300</div>
+        <p>Adds pages such as About, Gallery and a contact form. Good for shops with more to show.</p>
+      </div>
+      <div class="price">
+        <h3>Monthly care</h3>
+        <div class="amount">£15<small> / month</small></div>
+        <p>Small updates when your menu, prices or hours change, and keeping your site online.</p>
+      </div>
+    </div>
+    <p class="note">You pay 50% to start and 50% when your site goes live. Two rounds of changes are included. Your domain name and hosting are registered in your own name, so you always own your website. A domain usually costs about £10–£15 a year.</p>
+  </section>
+
+  <section id="work">
+    <span class="label">Recent work</span>
+    <h2>SKY LAB DIAMONDS</h2>
+    <div class="work">
+      <a class="browser" href="https://janvipatel1910.github.io/sky-lab-diamonds/" target="_blank" rel="noopener" style="text-decoration:none">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">janvipatel1910.github.io/sky-lab-diamonds</span></div>
+        <div class="shot">
+          <span class="label">UK trade supplier</span>
+          <strong>Lab-grown diamonds and jewellery for the jewellery trade</strong>
+          <div class="chips"><span>Jewellery gallery</span><span>Size guide</span><span>Trade enquiry form</span></div>
+        </div>
+      </a>
+      <div style="display:grid;gap:12px">
+        <p>A website for a UK supplier of lab-grown diamonds and jewellery, built for retailers and trade partners.</p>
+        <ul>
+          <li>Jewellery collection with photo galleries</li>
+          <li>Interactive size guide showing each diamond shape to scale next to a UK 1p coin</li>
+          <li>Enquiry form where retailers pick shape, carat, colour and clarity</li>
+          <li>Works on phones, tablets and computers</li>
+        </ul>
+        <a href="https://janvipatel1910.github.io/sky-lab-diamonds/" target="_blank" rel="noopener">View the site</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <span class="label">How it works</span>
+    <h2>From first chat to live website</h2>
+    <ol class="steps">
+      <li><div><h3>Free chat</h3><p>We talk about your business, what your customers need, and which package fits.</p></div></li>
+      <li><div><h3>You send your details</h3><p>Menu, opening hours, photos and logo. You pay the 50% deposit.</p></div></li>
+      <li><div><h3>First draft</h3><p>I build the site and send you a private link to check on your phone.</p></div></li>
+      <li><div><h3>Changes</h3><p>Tell me what to change. Two rounds of changes are included.</p></div></li>
+      <li><div><h3>Go live</h3><p>Your site goes online at your own address and you pay the final 50%.</p></div></li>
+    </ol>
+  </section>
+
+  <section id="contact">
+    <span class="label">Contact</span>
+    <h2>Ask for a free quote</h2>
+    <p>Message me with your business name and what you need. I'm Janvi, based near Wembley, and happy to meet you at your shop.</p>
+    <div class="contact">
+      <div class="line"><div><span class="label">Phone / WhatsApp</span><div class="val" id="v-phone">07384 197168</div></div><button class="copy" id="c-phone" data-copy="07384197168">Copy</button></div>
+      <div class="line"><div><span class="label">Email</span><div class="val" id="v-email">cloudgirl1910@gmail.com</div></div><button class="copy" id="c-email" data-copy="cloudgirl1910@gmail.com">Copy</button></div>
+    </div>
+  </section>
+
+  <footer>Kripa Web Design · Janvi Patel · Wembley, London</footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.getAttribute('data-copy'),done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)};
+    var sel=function(){var el=b.parentElement.querySelector('.val');var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';setTimeout(function(){b.textContent='Copy'},1600)};
+    try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}
+  });
+});
+</script>
+</body>
+</html>

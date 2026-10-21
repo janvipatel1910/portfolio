@@ -5,230 +5,471 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kripa Web Design</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Simple, mobile-friendly websites for local shops, cafés, takeaways and barbers in Wembley and North West London.">
+<meta name="description" content="Simple, mobile-friendly websites for local shops, cafés, takeaways, sweet shops and barbers in Wembley and North West London. One-page sites from £150.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Layout: one narrow reading column; a shop-window "storefront" hero; price cards as the one boxed element */
+/* Layout: high-street storefront. Striped awning motif, a live phone "shop window" in the hero, then a single reading column of sections. Marigold is the one loud colour. */
 :root{
-  --bg:#F5F6FA; --surface:#FFFFFF; --ink:#18213A; --muted:#55607A; --line:#DCE0EA;
-  --accent:#E09A12; --accent-ink:#1A1405; --deep:#22305A;
-  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
-  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  --bg:#F4F5F9; --surface:#FFFFFF; --sunk:#E9ECF3; --ink:#161E36; --muted:#56607A; --line:#D9DEEA;
+  --accent:#E39B10; --accent-soft:#FBEBC8; --accent-ink:#1A1405; --deep:#24336A; --ok:#1E7A4F;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:16px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F1424; --surface:#171E33; --ink:#E9ECF5; --muted:#A3ABC2; --line:#2A3350;
-  --accent:#F2B13A; --accent-ink:#1A1405; --deep:#C9D3F2; color-scheme:dark }}
+  --bg:#0E1322; --surface:#161D31; --sunk:#1C2440; --ink:#ECEFF7; --muted:#A4ACC3; --line:#2A3352;
+  --accent:#F3B23B; --accent-soft:#3A2E14; --accent-ink:#1A1405; --deep:#C8D2F4; --ok:#4FC28C; color-scheme:dark }}
 :root[data-theme="dark"]{
-  --bg:#0F1424; --surface:#171E33; --ink:#E9ECF5; --muted:#A3ABC2; --line:#2A3350;
-  --accent:#F2B13A; --accent-ink:#1A1405; --deep:#C9D3F2; color-scheme:dark }
+  --bg:#0E1322; --surface:#161D31; --sunk:#1C2440; --ink:#ECEFF7; --muted:#A4ACC3; --line:#2A3352;
+  --accent:#F3B23B; --accent-soft:#3A2E14; --accent-ink:#1A1405; --deep:#C8D2F4; --ok:#4FC28C; color-scheme:dark }
 
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);
-  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
-.wrap{max-width:880px;margin:0 auto}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);margin:0}
+.band{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1040px;margin:0 auto}
 a{color:var(--deep);text-underline-offset:3px}
-a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.1;margin:0}
-h2{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:700}
-h3{font-size:1.15rem;font-weight:700}
-.label{font:500 .75rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-section{padding-block:56px;border-top:1px solid var(--line);display:grid;gap:24px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.08;margin:0;letter-spacing:-.015em}
+h2{font-size:clamp(1.75rem,4.2vw,2.6rem);font-weight:800}
+h3{font-size:1.12rem;font-weight:700;letter-spacing:0}
 p{margin:0;max-width:62ch}
+.label{font:500 .74rem/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);font-size:1.08rem}
+section{padding-block:clamp(56px,9vw,96px)}
+.head{display:grid;gap:12px;margin-bottom:32px}
 
-/* header */
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:20px;flex-wrap:wrap}
-.brand{font:800 1.25rem/1 var(--display);letter-spacing:-.01em}
-.brand span{color:var(--accent)}
-.navlink{font-weight:600;text-decoration:none;color:var(--ink);border-bottom:2px solid var(--accent)}
+/* awning stripe */
+.awning{height:14px;background:repeating-linear-gradient(90deg,var(--accent) 0 34px,var(--surface) 34px 68px);border-bottom:2px solid var(--ink)}
+
+/* sticky nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{font:800 1.2rem/1 var(--display);text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
+.mark{width:28px;height:28px;border-radius:8px;background:var(--ink);display:grid;place-items:center;overflow:hidden;position:relative}
+.mark::before{content:"";position:absolute;inset:0 0 auto;height:9px;background:repeating-linear-gradient(90deg,var(--accent) 0 5px,var(--bg) 5px 10px)}
+.mark b{color:var(--bg);font:800 .9rem/1 var(--display);margin-top:8px}
+.links{display:flex;gap:22px;align-items:center}
+.links a{text-decoration:none;color:var(--muted);font-weight:500;font-size:.95rem}
+.links a:hover{color:var(--ink)}
+@media (max-width:720px){.links a:not(.btn){display:none}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font:600 .98rem var(--body);text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 6px 18px -8px var(--accent)}
+.btn.sm{padding:8px 14px;font-size:.88rem}
 
 /* hero */
-.hero{padding-block:32px 56px;display:grid;gap:28px}
-.hero h1{font-size:clamp(2.3rem,7vw,4rem);font-weight:800;letter-spacing:-.02em}
-.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%, var(--accent) 62%)}
-.hero p{font-size:1.15rem;color:var(--muted)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:center;padding-block:clamp(40px,7vw,80px)}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr}}
+.hero-copy{display:grid;gap:22px}
+.hero h1{font-size:clamp(2.5rem,7.2vw,4.6rem);font-weight:800;letter-spacing:-.03em}
+.hero h1 .hl{background:linear-gradient(transparent 60%,var(--accent) 60%,var(--accent) 92%,transparent 92%)}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;padding:13px 20px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;font-size:1rem;cursor:pointer;font-family:var(--body)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.92rem}
+.trust span{display:inline-flex;align-items:center;gap:7px}
+.trust span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}
 
-/* storefront: what a shop's page shows, drawn as a phone-sized listing */
-.store{border:2px solid var(--ink);border-radius:18px;background:var(--surface);overflow:hidden;max-width:420px}
-.awning{height:22px;background:repeating-linear-gradient(90deg,var(--accent) 0 28px,var(--surface) 28px 56px);border-bottom:2px solid var(--ink)}
-.store-body{padding:18px;display:grid;gap:10px}
-.store-row{display:flex;justify-content:space-between;gap:12px;font-size:.95rem;border-bottom:1px dashed var(--line);padding-bottom:8px}
-.store-row:last-child{border-bottom:0;padding-bottom:0}
-.store-row b{font-weight:600}
-.store-row span{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+/* phone demo */
+.demo{display:grid;gap:14px;justify-items:center}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.tab{font:600 .85rem var(--body);padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.phone{width:min(300px,100%);aspect-ratio:9/18.5;max-width:100%;border:10px solid var(--ink);border-radius:42px;background:var(--surface);overflow:hidden;position:relative;box-shadow:0 30px 60px -30px rgba(10,15,35,.55)}
+.phone::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:76px;height:20px;border-radius:12px;background:var(--ink);z-index:3}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;transition:opacity .35s ease}
+.screen.fade{opacity:0}
+.s-hero{padding:44px 16px 18px;color:#fff;display:grid;gap:6px;background:var(--demo,#333)}
+.s-hero .tag{font:500 .62rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.s-hero strong{font:800 1.45rem/1.05 var(--display)}
+.open{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;background:rgba(255,255,255,.18);padding:4px 9px;border-radius:999px;width:max-content}
+.open::before{content:"";width:7px;height:7px;border-radius:50%;background:#7CF2B1}
+.s-body{padding:14px 16px;display:grid;gap:9px;flex:1;align-content:start;background:var(--surface);color:var(--ink)}
+.s-body .label{font-size:.6rem}
+.item{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;border-bottom:1px dashed var(--line);padding-bottom:7px}
+.item span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
+.s-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 16px 18px;background:var(--surface)}
+.s-actions span{font-size:.72rem;font-weight:700;text-align:center;padding:9px 4px;border-radius:10px;border:1.5px solid var(--demo,#333);color:var(--ink)}
+.s-actions span:first-child{background:var(--demo,#333);color:#fff}
+.demo-note{font-size:.8rem;color:var(--muted);text-align:center}
 
-/* includes list */
-.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 28px;padding:0;margin:0;list-style:none}
-.checks li{display:flex;gap:10px;align-items:baseline}
-.checks li::before{content:"";flex:0 0 10px;height:10px;border-radius:2px;background:var(--accent);transform:translateY(-1px)}
+/* who strip */
+.who{border-block:2px solid var(--ink);background:var(--surface);overflow:hidden}
+.who-track{display:flex;gap:40px;padding-block:16px;width:max-content;animation:slide 32s linear infinite}
+.who-track span{font:700 1.15rem var(--display);white-space:nowrap;display:flex;align-items:center;gap:40px}
+.who-track span::after{content:"";width:10px;height:10px;background:var(--accent);transform:rotate(45deg)}
+@keyframes slide{to{transform:translateX(-50%)}}
 
-/* prices */
-.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
-.price{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:10px;align-content:start}
-.price.feature{border:2px solid var(--accent)}
-.amount{font:800 2.4rem/1 var(--display);font-variant-numeric:tabular-nums}
-.amount small{font:500 .95rem var(--body);color:var(--muted)}
-.price p{color:var(--muted);font-size:.95rem}
-.note{font-size:.92rem;color:var(--muted)}
+/* includes */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start}
+.ico{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center}
+.ico svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat p{color:var(--muted);font-size:.93rem}
+
+/* pricing + calculator */
+.pricing{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:20px;align-items:start}
+@media (max-width:820px){.pricing{grid-template-columns:1fr}}
+.options{display:grid;gap:12px}
+.opt{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:18px;cursor:pointer;transition:border-color .15s}
+.opt:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.opt input{width:20px;height:20px;margin-top:3px;accent-color:var(--accent)}
+.opt p{color:var(--muted);font-size:.92rem}
+.opt .amt{font:800 1.7rem/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.opt .amt small{font:500 .8rem var(--body);color:var(--muted)}
+.receipt{background:var(--ink);color:var(--bg);border-radius:var(--r);padding:24px;display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+.receipt .label{color:color-mix(in srgb,var(--bg) 70%,var(--ink))}
+.r-row{display:flex;justify-content:space-between;gap:10px;font-size:.95rem;font-variant-numeric:tabular-nums}
+.r-row.total{border-top:1px dashed color-mix(in srgb,var(--bg) 40%,var(--ink));padding-top:12px;font:700 1.25rem var(--display)}
+.r-note{font-size:.82rem;opacity:.75}
+.receipt .btn{border-color:var(--accent);justify-content:center}
 
 /* work */
-.work{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:center}
-@media (max-width:680px){.work{grid-template-columns:1fr}}
-.browser{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0E1220}
+.case{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,4vw,48px);align-items:center}
+@media (max-width:820px){.case{grid-template-columns:1fr}}
+.browser{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0B0F1C;box-shadow:0 30px 60px -36px rgba(10,15,35,.6);transition:transform .2s}
+.browser:hover{transform:translateY(-3px)}
 .bar{display:flex;gap:6px;align-items:center;padding:10px 12px;background:var(--surface);border-bottom:1px solid var(--line)}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .url{margin-left:8px;font:500 .72rem var(--mono);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.shot{padding:30px 22px;display:grid;gap:10px;background:radial-gradient(circle at 80% 20%,#2B3A6B 0,#0E1220 65%);color:#EEF1FA}
-.shot .label{color:#B9C3E3}
-.shot strong{font:700 1.35rem/1.15 var(--display)}
+.shot{padding:28px 22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;background:radial-gradient(circle at 85% 15%,#2E3D72 0,#0B0F1C 70%);color:#EEF1FA}
+.shot .label{color:#B5C0E4}
+.shot strong{font:700 1.3rem/1.15 var(--display);display:block;margin-block:8px 12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips span{font-size:.75rem;border:1px solid #47558A;border-radius:999px;padding:3px 9px;color:#D8DEF2}
-.work ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
+.chips span{font-size:.72rem;border:1px solid #46568E;border-radius:999px;padding:3px 9px;color:#D6DCF3}
+.gem{width:84px;height:84px}
+.gem polygon{fill:#DDE6FF;stroke:#8EA3E8;stroke-width:1}
+.gem polygon.f{fill:#A9BCF5}
+.case ul{margin:0;padding-left:18px;display:grid;gap:7px;color:var(--muted)}
+.case-copy{display:grid;gap:16px}
 
-/* steps */
-.steps{list-style:none;padding:0;margin:0;display:grid;gap:18px;counter-reset:s}
-.steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;counter-increment:s}
-.steps li::before{content:counter(s);font:700 1.1rem/40px var(--display);text-align:center;width:40px;height:40px;border-radius:50%;border:2px solid var(--ink)}
-.steps p{color:var(--muted)}
+/* process */
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:860px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:s;display:grid;gap:8px;align-content:start;padding-top:18px;border-top:3px solid var(--ink)}
+.steps li::before{content:"Step " counter(s);font:500 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.steps p{color:var(--muted);font-size:.92rem}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:760px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 18px}
+summary{cursor:pointer;font:600 1.02rem var(--body);padding-block:14px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:700 1.3rem/1 var(--display);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);padding-bottom:16px}
 
 /* contact */
-.contact{display:grid;gap:12px}
-.line{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.contact{background:var(--ink);color:var(--bg)}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,56px);align-items:start}
+@media (max-width:820px){.contact .wrap{grid-template-columns:1fr}}
+.contact h2{color:var(--bg)}
+.contact .lede,.contact .label{color:color-mix(in srgb,var(--bg) 72%,var(--ink))}
+.lines{display:grid;gap:10px;margin-top:8px}
+.line{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;border:1px solid color-mix(in srgb,var(--bg) 22%,var(--ink));border-radius:12px;padding:14px 16px}
 .line div{min-width:0}
 .val{font:600 1.05rem var(--body);word-break:break-all;user-select:all}
-.copy{font:600 .85rem var(--body);padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
-footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.copy{font:600 .85rem var(--body);padding:8px 14px;border-radius:999px;border:1.5px solid var(--accent);background:transparent;color:var(--bg);cursor:pointer}
+form{background:var(--surface);color:var(--ink);border-radius:var(--r);padding:clamp(18px,3vw,28px);display:grid;gap:14px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.f2{grid-template-columns:1fr}}
+label.fld{display:grid;gap:6px;font-weight:600;font-size:.9rem}
+input[type=text],select,textarea{font:400 1rem var(--body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;width:100%}
+textarea{min-height:90px;resize:vertical}
+.form-note{font-size:.82rem;color:var(--muted)}
+.send{display:flex;flex-wrap:wrap;gap:10px}
+
+footer{padding-block:28px 40px;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .who-track{animation:none}
+  .btn,.browser,.screen{transition:none}
+}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div class="brand">Kripa<span>.</span> Web Design</div>
-    <a class="navlink" href="#contact">Get a free quote</a>
-  </header>
-
-  <div class="hero">
-    <span class="label">Wembley · North West London</span>
-    <h1>Websites for <em>local shops</em> that customers can actually find.</h1>
-    <p>I build simple, mobile-friendly websites for cafés, takeaways, sweet shops, barbers and small businesses. Your menu, your opening hours and your phone number, all in one place and easy to find on Google.</p>
-    <div class="cta">
-      <a class="btn primary" href="#contact">Get a free quote</a>
-      <a class="btn" href="#prices">See prices</a>
+<nav class="top band">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark"><b>K</b></span>Kripa Web Design</a>
+    <div class="links">
+      <a href="#includes">What you get</a>
+      <a href="#prices">Prices</a>
+      <a href="#work">Work</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn primary sm" href="#contact">Free quote</a>
     </div>
-    <div class="store" aria-label="Example of what your customers see">
-      <div class="awning"></div>
-      <div class="store-body">
-        <span class="label">What your customers see</span>
-        <div class="store-row"><b>Today</b><span>Open · 10:00 – 21:30</span></div>
-        <div class="store-row"><b>Menu</b><span>Up to date, with prices</span></div>
-        <div class="store-row"><b>Call or WhatsApp</b><span>One tap on mobile</span></div>
-        <div class="store-row"><b>Find us</b><span>Map and directions</span></div>
+  </div>
+</nav>
+<div class="awning"></div>
+
+<header class="hero band" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="label">Websites for Wembley's high street</span>
+      <h1>Your shop, open online <span class="hl">24 hours a day.</span></h1>
+      <p class="lede">I build simple, mobile-friendly websites for cafés, takeaways, sweet shops, barbers and small businesses. Customers see your menu, opening hours and phone number in one tap, and find you on Google.</p>
+      <div class="cta">
+        <a class="btn primary" href="#contact">Get a free quote</a>
+        <a class="btn" href="#prices">One-page sites from £150</a>
+      </div>
+      <div class="trust">
+        <span>You own your website</span>
+        <span>Pay 50% now, 50% at launch</span>
+        <span>Happy to meet at your shop</span>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="tabs" role="tablist" aria-label="Example shop designs">
+        <button class="tab" role="tab" id="t-cafe" data-k="cafe" aria-selected="true">Café</button>
+        <button class="tab" role="tab" id="t-take" data-k="take" aria-selected="false">Takeaway</button>
+        <button class="tab" role="tab" id="t-barber" data-k="barber" aria-selected="false">Barber</button>
+        <button class="tab" role="tab" id="t-sweet" data-k="sweet" aria-selected="false">Sweet shop</button>
+      </div>
+      <div class="phone" aria-live="polite">
+        <div class="screen" id="screen"></div>
+      </div>
+      <p class="demo-note">Example designs with made-up shops and prices.</p>
+    </div>
+  </div>
+</header>
+
+<div class="who" aria-hidden="true">
+  <div class="who-track">
+    <span>Cafés</span><span>Takeaways</span><span>Sweet shops</span><span>Barbers</span><span>Nail &amp; beauty salons</span><span>Grocers</span><span>Restaurants</span><span>Jewellers</span>
+    <span>Cafés</span><span>Takeaways</span><span>Sweet shops</span><span>Barbers</span><span>Nail &amp; beauty salons</span><span>Grocers</span><span>Restaurants</span><span>Jewellers</span>
+  </div>
+</div>
+
+<section id="includes" class="band">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Included in every site</span>
+      <h2>Everything a customer checks before they visit</h2>
+    </div>
+    <div class="grid">
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h3>Made for phones</h3><p>Most customers find you on their phone, so every page is built for small screens first.</p></div>
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div><h3>Menu or price list</h3><p>Clear prices people can read without zooming in, easy to update when things change.</p></div>
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Correct opening hours</h3><p>No more customers turning up when you're closed because of an old listing.</p></div>
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><h3>Call &amp; WhatsApp buttons</h3><p>One tap to call, message you on WhatsApp or send an email.</p></div>
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Map &amp; directions</h3><p>A Google map so people can walk or drive straight to your door.</p></div>
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div><h3>Google Business check</h3><p>I check your Google listing matches your website: name, hours, phone and address.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="prices" class="band" style="background:var(--sunk)">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Starter prices</span>
+      <h2>Work out your price in seconds</h2>
+      <p class="lede">Pick a package and see exactly what you pay today, at launch and each month.</p>
+    </div>
+    <div class="pricing">
+      <div class="options">
+        <label class="opt"><input type="radio" name="pkg" id="pkg-one" value="150" checked><div><h3>One-page site</h3><p>Menu or services, opening hours, map, contact buttons and photos on one page. Ideal for a café, takeaway or barber.</p></div><span class="amt">£150</span></label>
+        <label class="opt"><input type="radio" name="pkg" id="pkg-small" value="300"><div><h3>Small site, 3–5 pages</h3><p>Adds pages such as About, Gallery, Order or Contact form. Good for shops with more to show.</p></div><span class="amt">£300</span></label>
+        <label class="opt"><input type="checkbox" id="care" value="15"><div><h3>Monthly care</h3><p>I update your menu, prices and hours whenever they change, and keep your site online and working.</p></div><span class="amt">£15<small>/mo</small></span></label>
+      </div>
+      <aside class="receipt" aria-live="polite">
+        <span class="label">Your estimate</span>
+        <div class="r-row"><span id="r-pkg">One-page site</span><span id="r-build">£150</span></div>
+        <div class="r-row"><span>Pay today (50%)</span><span id="r-dep">£75</span></div>
+        <div class="r-row"><span>Pay at launch (50%)</span><span id="r-rest">£75</span></div>
+        <div class="r-row"><span>Monthly care</span><span id="r-care">Not added</span></div>
+        <div class="r-row total"><span>Total to build</span><span id="r-total">£150</span></div>
+        <p class="r-note">Your domain name (about £10–£15 a year) is registered in your own name and paid directly by you. Two rounds of changes are included.</p>
+        <a class="btn primary" href="#contact" id="r-cta">Ask about this package</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="band">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Recent work</span>
+      <h2>SKY LAB DIAMONDS</h2>
+    </div>
+    <div class="case">
+      <a class="browser" href="https://janvipatel1910.github.io/sky-lab-diamonds/" target="_blank" rel="noopener" aria-label="Open the SKY LAB DIAMONDS website">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">janvipatel1910.github.io/sky-lab-diamonds</span></div>
+        <div class="shot">
+          <div>
+            <span class="label">UK trade supplier</span>
+            <strong>Lab-grown diamonds and jewellery for the jewellery trade</strong>
+            <div class="chips"><span>Jewellery gallery</span><span>Size guide</span><span>Trade enquiry form</span></div>
+          </div>
+          <svg class="gem" viewBox="0 0 100 100" aria-hidden="true">
+            <polygon points="20,35 35,18 65,18 80,35"/>
+            <polygon class="f" points="35,18 50,35 65,18"/>
+            <polygon points="20,35 80,35 50,88"/>
+            <polygon class="f" points="35,35 50,35 50,88"/>
+            <polygon class="f" points="65,35 80,35 50,88"/>
+          </svg>
+        </div>
+      </a>
+      <div class="case-copy">
+        <p>A business-to-business website for a UK supplier of lab-grown diamonds and jewellery, made for retailers and trade partners.</p>
+        <ul>
+          <li>Jewellery collection with photo galleries for each category</li>
+          <li>Interactive size guide showing ten diamond shapes to scale next to a UK 1p coin</li>
+          <li>Enquiry builder where retailers pick shape, carat, colour, clarity and certificate</li>
+          <li>Comparison table explaining lab-grown and mined diamonds</li>
+          <li>Works on phones, tablets and computers</li>
+        </ul>
+        <div><a class="btn" href="https://janvipatel1910.github.io/sky-lab-diamonds/" target="_blank" rel="noopener">View the live site ↗</a></div>
       </div>
     </div>
   </div>
+</section>
 
-  <section id="includes">
-    <span class="label">Included in every site</span>
-    <h2>Everything a customer looks for before they visit</h2>
-    <ul class="checks">
-      <li>Works well on phones</li>
-      <li>Menu, services or price list</li>
-      <li>Correct opening hours</li>
-      <li>Phone, WhatsApp and email</li>
-      <li>Google map and directions</li>
-      <li>Your photos</li>
-      <li>A check of your Google Business Profile</li>
-      <li>Links to your Instagram, Facebook or booking app</li>
-    </ul>
-  </section>
-
-  <section id="prices">
-    <span class="label">Starter prices</span>
-    <h2>Clear prices, no surprises</h2>
-    <div class="prices">
-      <div class="price feature">
-        <h3>One-page site</h3>
-        <div class="amount">£150</div>
-        <p>Menu or services, opening hours, map, contact details and photos on one page. Ideal for a café, takeaway or barber.</p>
-      </div>
-      <div class="price">
-        <h3>Small site, 3–5 pages</h3>
-        <div class="amount">£300</div>
-        <p>Adds pages such as About, Gallery and a contact form. Good for shops with more to show.</p>
-      </div>
-      <div class="price">
-        <h3>Monthly care</h3>
-        <div class="amount">£15<small> / month</small></div>
-        <p>Small updates when your menu, prices or hours change, and keeping your site online.</p>
-      </div>
+<section id="how" class="band" style="background:var(--sunk)">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">How it works</span>
+      <h2>From first chat to live website</h2>
     </div>
-    <p class="note">You pay 50% to start and 50% when your site goes live. Two rounds of changes are included. Your domain name and hosting are registered in your own name, so you always own your website. A domain usually costs about £10–£15 a year.</p>
-  </section>
-
-  <section id="work">
-    <span class="label">Recent work</span>
-    <h2>SKY LAB DIAMONDS</h2>
-    <div class="work">
-      <a class="browser" href="https://janvipatel1910.github.io/sky-lab-diamonds/" target="_blank" rel="noopener" style="text-decoration:none">
-        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">janvipatel1910.github.io/sky-lab-diamonds</span></div>
-        <div class="shot">
-          <span class="label">UK trade supplier</span>
-          <strong>Lab-grown diamonds and jewellery for the jewellery trade</strong>
-          <div class="chips"><span>Jewellery gallery</span><span>Size guide</span><span>Trade enquiry form</span></div>
-        </div>
-      </a>
-      <div style="display:grid;gap:12px">
-        <p>A website for a UK supplier of lab-grown diamonds and jewellery, built for retailers and trade partners.</p>
-        <ul>
-          <li>Jewellery collection with photo galleries</li>
-          <li>Interactive size guide showing each diamond shape to scale next to a UK 1p coin</li>
-          <li>Enquiry form where retailers pick shape, carat, colour and clarity</li>
-          <li>Works on phones, tablets and computers</li>
-        </ul>
-        <a href="https://janvipatel1910.github.io/sky-lab-diamonds/" target="_blank" rel="noopener">View the site</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="how">
-    <span class="label">How it works</span>
-    <h2>From first chat to live website</h2>
     <ol class="steps">
-      <li><div><h3>Free chat</h3><p>We talk about your business, what your customers need, and which package fits.</p></div></li>
-      <li><div><h3>You send your details</h3><p>Menu, opening hours, photos and logo. You pay the 50% deposit.</p></div></li>
-      <li><div><h3>First draft</h3><p>I build the site and send you a private link to check on your phone.</p></div></li>
-      <li><div><h3>Changes</h3><p>Tell me what to change. Two rounds of changes are included.</p></div></li>
-      <li><div><h3>Go live</h3><p>Your site goes online at your own address and you pay the final 50%.</p></div></li>
+      <li><h3>Free chat</h3><p>We talk about your shop, your customers and which package fits.</p></li>
+      <li><h3>Send your details</h3><p>Menu, opening hours, photos and logo, plus the 50% deposit.</p></li>
+      <li><h3>First draft</h3><p>I send you a private link to check on your own phone.</p></li>
+      <li><h3>Changes</h3><p>Tell me what to change. Two rounds are included.</p></li>
+      <li><h3>Go live</h3><p>Your site goes online at your own address. You pay the final 50%.</p></li>
     </ol>
-  </section>
+  </div>
+</section>
 
-  <section id="contact">
-    <span class="label">Contact</span>
-    <h2>Ask for a free quote</h2>
-    <p>Message me with your business name and what you need. I'm Janvi, based near Wembley, and happy to meet you at your shop.</p>
-    <div class="contact">
-      <div class="line"><div><span class="label">Phone / WhatsApp</span><div class="val" id="v-phone">07384 197168</div></div><button class="copy" id="c-phone" data-copy="07384197168">Copy</button></div>
-      <div class="line"><div><span class="label">Email</span><div class="val" id="v-email">cloudgirl1910@gmail.com</div></div><button class="copy" id="c-email" data-copy="cloudgirl1910@gmail.com">Copy</button></div>
+<section id="faq" class="band">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Questions</span>
+      <h2>Things shop owners usually ask</h2>
     </div>
-  </section>
+    <div class="faq">
+      <details><summary>Do I own my website?</summary><p>Yes. Your domain name is registered in your name, and you can take your website anywhere, at any time.</p></details>
+      <details><summary>I already have a Facebook or Instagram page. Why do I need a website?</summary><p>Social pages are great for photos, but customers searching on Google want your hours, menu, phone number and location fast. A website shows all of that in one place and links to your social pages too.</p></details>
+      <details><summary>How long does it take?</summary><p>It mostly depends on how quickly you can send your menu, photos and details. I'll give you a clear date before we start.</p></details>
+      <details><summary>Can you update my existing website instead?</summary><p>Yes. Tell me what's wrong or out of date, and I'll give you a free quote to fix or refresh it.</p></details>
+      <details><summary>What if my menu or prices change later?</summary><p>With monthly care (£15 a month) I make those changes for you. Without it, I can quote for one-off updates.</p></details>
+      <details><summary>Do I have to pay everything upfront?</summary><p>No. You pay 50% to start and the other 50% only when your website goes live.</p></details>
+    </div>
+  </div>
+</section>
 
-  <footer>Kripa Web Design · Janvi Patel · Wembley, London</footer>
-</div>
+<section id="contact" class="contact band">
+  <div class="wrap">
+    <div style="display:grid;gap:16px">
+      <span class="label">Contact</span>
+      <h2>Ask for a free quote</h2>
+      <p class="lede">I'm Janvi, based near Wembley. Message me with your shop name and what you need, and I'll get back to you. I'm happy to meet at your shop.</p>
+      <div class="lines">
+        <div class="line"><div><span class="label">Phone / WhatsApp</span><div class="val">07384 197168</div></div><button class="copy" id="c-phone" data-copy="07384197168">Copy</button></div>
+        <div class="line"><div><span class="label">Email</span><div class="val">cloudgirl1910@gmail.com</div></div><button class="copy" id="c-email" data-copy="cloudgirl1910@gmail.com">Copy</button></div>
+      </div>
+    </div>
+    <form id="qform" novalidate>
+      <div class="f2">
+        <label class="fld" for="f-name">Your name<input type="text" id="f-name" placeholder="e.g. Ravi"></label>
+        <label class="fld" for="f-biz">Shop name<input type="text" id="f-biz" placeholder="e.g. Corner Café, Wembley"></label>
+      </div>
+      <label class="fld" for="f-need">What do you need?
+        <select id="f-need">
+          <option>One-page site (£150)</option>
+          <option>Small site, 3–5 pages (£300)</option>
+          <option>Update my existing website</option>
+          <option>Not sure yet, I'd like advice</option>
+        </select>
+      </label>
+      <label class="fld" for="f-msg">Anything else?<textarea id="f-msg" placeholder="e.g. We need our menu and opening hours online before Diwali."></textarea></label>
+      <div class="send">
+        <a class="btn primary" id="wa" href="https://wa.me/447384197168" target="_blank" rel="noopener">Send on WhatsApp</a>
+        <button type="button" class="btn" id="copymsg">Copy message</button>
+      </div>
+      <p class="form-note">WhatsApp opens with your message filled in, ready for you to send. Or copy it and email it to cloudgirl1910@gmail.com.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap"><span>Kripa Web Design · Janvi Patel · Wembley, London</span><a href="#top">Back to top ↑</a></div>
+</footer>
 
 <script>
-document.querySelectorAll('.copy').forEach(function(b){
-  b.addEventListener('click',function(){
-    var t=b.getAttribute('data-copy'),done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)};
-    var sel=function(){var el=b.parentElement.querySelector('.val');var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';setTimeout(function(){b.textContent='Copy'},1600)};
-    try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}
-  });
-});
+(function(){
+  /* ---- phone demo ---- */
+  var demos={
+    cafe:{c:"#2F6B4F",tag:"Wembley Park",name:"Corner Café",hours:"Open · 7:30 – 17:00",title:"Today's menu",items:[["Flat white","£3.20"],["Masala chai","£2.80"],["Cheese toastie","£5.50"],["Banana bread","£3.00"]],a:["Call us","Directions"]},
+    take:{c:"#B5402A",tag:"Ealing Road",name:"Spice Box",hours:"Open · 12:00 – 23:00",title:"Popular dishes",items:[["Paneer tikka wrap","£6.50"],["Veg biryani","£8.00"],["Samosa (2)","£2.50"],["Mango lassi","£3.00"]],a:["Order now","WhatsApp"]},
+    barber:{c:"#1F2A44",tag:"Harrow Road",name:"Sharp Line Barbers",hours:"Open · 9:00 – 19:00",title:"Prices",items:[["Skin fade","£20"],["Regular cut","£16"],["Beard trim","£12"],["Kids cut","£12"]],a:["Book now","Call us"]},
+    sweet:{c:"#A1306B",tag:"Ealing Road",name:"Mithai House",hours:"Open · 10:00 – 20:00",title:"Festival favourites",items:[["Kaju katli, 500g","£12"],["Motichoor ladoo, 500g","£8"],["Jalebi, 250g","£4"],["Gift box","from £15"]],a:["Pre-order","WhatsApp"]}
+  };
+  var order=["cafe","take","barber","sweet"],cur=0,timer=null;
+  var screen=document.getElementById("screen"),tabs=[].slice.call(document.querySelectorAll(".tab"));
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function esc(s){return s.replace(/[&<>]/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[m]})}
+  function paint(k){
+    var d=demos[k];
+    screen.style.setProperty("--demo",d.c);
+    screen.innerHTML='<div class="s-hero"><span class="tag">'+esc(d.tag)+'</span><strong>'+esc(d.name)+'</strong><span class="open">'+esc(d.hours)+'</span></div>'+
+      '<div class="s-body"><span class="label">'+esc(d.title)+'</span>'+d.items.map(function(i){return '<div class="item"><span>'+esc(i[0])+'</span><span>'+esc(i[1])+'</span></div>'}).join("")+'</div>'+
+      '<div class="s-actions"><span>'+esc(d.a[0])+'</span><span>'+esc(d.a[1])+'</span></div>';
+    tabs.forEach(function(t){t.setAttribute("aria-selected",t.dataset.k===k?"true":"false")});
+  }
+  function show(i){
+    cur=(i+order.length)%order.length;
+    if(reduce){paint(order[cur]);return}
+    screen.classList.add("fade");
+    setTimeout(function(){paint(order[cur]);screen.classList.remove("fade")},200);
+  }
+  paint(order[0]);
+  if(!reduce){timer=setInterval(function(){show(cur+1)},3800)}
+  tabs.forEach(function(t){t.addEventListener("click",function(){clearInterval(timer);show(order.indexOf(t.dataset.k))})});
+
+  /* ---- price calculator ---- */
+  var gbp=function(n){return "£"+(n%1?n.toFixed(2):n)};
+  function calc(){
+    var big=document.getElementById("pkg-small").checked,build=big?300:150,care=document.getElementById("care").checked;
+    document.getElementById("r-pkg").textContent=big?"Small site, 3–5 pages":"One-page site";
+    document.getElementById("r-build").textContent=gbp(build);
+    document.getElementById("r-dep").textContent=gbp(build/2);
+    document.getElementById("r-rest").textContent=gbp(build/2);
+    document.getElementById("r-care").textContent=care?"£15 / month":"Not added";
+    document.getElementById("r-total").textContent=gbp(build);
+    var need=document.getElementById("f-need");need.selectedIndex=big?1:0;buildMsg();
+  }
+  ["pkg-one","pkg-small","care"].forEach(function(id){document.getElementById(id).addEventListener("change",calc)});
+
+  /* ---- quote message ---- */
+  function msg(){
+    var n=document.getElementById("f-name").value.trim(),b=document.getElementById("f-biz").value.trim(),
+        need=document.getElementById("f-need").value,m=document.getElementById("f-msg").value.trim(),
+        care=document.getElementById("care").checked;
+    var t="Hi Janvi, "+(n?"I'm "+n+(b?" from "+b:"")+". ":(b?"this is "+b+". ":""))+"I'm interested in: "+need+(care?", with monthly care":"")+".";
+    if(m)t+="\n\n"+m;
+    return t;
+  }
+  function buildMsg(){document.getElementById("wa").href="https://wa.me/447384197168?text="+encodeURIComponent(msg())}
+  ["f-name","f-biz","f-need","f-msg"].forEach(function(id){document.getElementById(id).addEventListener("input",buildMsg)});
+  document.getElementById("qform").addEventListener("submit",function(e){e.preventDefault()});
+  buildMsg();
+
+  /* ---- copy buttons ---- */
+  function flash(b,txt){var o=b.dataset.o||b.textContent;b.dataset.o=o;b.textContent=txt;setTimeout(function(){b.textContent=o},1600)}
+  function copyText(b,t,fallbackEl){
+    try{navigator.clipboard.writeText(t).then(function(){flash(b,"Copied")},function(){sel(fallbackEl);flash(b,"Selected")})}
+    catch(e){sel(fallbackEl);flash(b,"Selected")}
+  }
+  function sel(el){if(!el)return;if(el.select){el.focus();el.select();return}var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+  document.querySelectorAll(".copy").forEach(function(b){b.addEventListener("click",function(){copyText(b,b.dataset.copy,b.parentElement.querySelector(".val"))})});
+  document.getElementById("copymsg").addEventListener("click",function(){var b=this,ta=document.getElementById("f-msg");copyText(b,msg(),ta)});
+})();
 </script>
 </body>
 </html>
